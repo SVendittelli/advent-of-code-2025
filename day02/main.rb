@@ -16,14 +16,26 @@ def is_symetric(input)
   first == second
 end
 
-sum = 0
+def is_repeated(input)
+  half = input.length / 2
+  (1..half).each do |num|
+    next if input.length % num != 0
+    return true if input.scan(/.{1,#{num}}/).uniq.length == 1
+  end
+  false
+end
+
+sum1 = 0
+sum2 = 0
 
 ranges.each do |range|
   first, last = range.split('-')
 
   (first.to_i..last.to_i).each do |id|
-    sum += id if is_symetric(id.to_s)
+    sum1 += id if is_symetric(id.to_s)
+    sum2 += id if is_repeated(id.to_s)
   end
 end
 
-puts "Part 1: #{sum}"
+puts "Part 1: #{sum1}"
+puts "Part 2: #{sum2}"
